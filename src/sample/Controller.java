@@ -8,11 +8,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Iterator;
 
 public class Controller {
@@ -53,24 +50,28 @@ public class Controller {
     @FXML
     private Button nextBtn;
 
-    private ArrayList<String> themes_list;
-    String extracted_string;
+    int extracted_timer;
+    int extracted_themes;
     private int timer;
     private Timer nt;
-    private Iterator iterator_themes;
+    private Iterator<String>iterator_themes;
 
 
     @FXML
     public void initialize() {
         // При нажатии "СТАРТ" показываем элементы игры и запускаем таймер
         startBtn.setOnAction(e -> {
-            extracted_string = extractNumber(inputTimeAnswer.getText());
-            if (extracted_string.equals("")) return; // скипаем старт если ничего небыло введено
+            // выносим первое число в переменную, в случае с count themes еще преобразуем в int
+            extracted_timer = extractNumber(inputTimeAnswer.getText());
+            extracted_themes = extractNumber(inputCountThemes.getText());
+
+            if (extracted_timer <= 0 || extracted_themes <= 0) return; // скипаем старт если ничего небыло введено
             switchVisibleElements(); // показываем нужные и скрываем лишние элементы
-            timer = Integer.parseInt(extracted_string);
+            timer = extracted_timer;
             timeAnswer.setText(timerStringFormat());
-            iterator_themes = themes_list.iterator();
-            currentTheme.setText(iterator_themes.next().toString());
+            ThemesList.generateSampleThemesList(extracted_themes);
+            iterator_themes = ThemesList.getSampleThemes().iterator();
+            currentTheme.setText(iterator_themes.next());
             nt.start();
         });
         // при нажатии "СТОП"
@@ -86,19 +87,14 @@ public class Controller {
             // при достижении нуля
             if (timer <= 0) {
                 if (iterator_themes.hasNext()) {
-                    currentTheme.setText(iterator_themes.next().toString());
-                    timer = Integer.parseInt(extracted_string);
+                    currentTheme.setText(iterator_themes.next());
+                    timer = extracted_timer;
                     timeAnswer.setText(timerStringFormat());
                 } else {
                     nt.stop();
                 }
             }
         });
-
-        // добавляем темы в список
-        String themes_str = "июнь,лето,зима,города,волейбол,вязание,личности,океан";
-        themes_list = new ArrayList<>(Arrays.asList(themes_str.split(",")));
-        iterator_themes = themes_list.iterator();
     }
 
     private String timerStringFormat() {
@@ -112,9 +108,9 @@ public class Controller {
         currentTheme.setVisible(!currentTheme.isVisible());
     }
 
-    private String extractNumber(final String str) {
+    private int extractNumber(final String str) {
 
-        if(str == null || str.isEmpty()) return "";
+        if(str == null || str.isEmpty()) return -1;
 
         StringBuilder sb = new StringBuilder();
         boolean found = false;
@@ -128,7 +124,7 @@ public class Controller {
             }
         }
 
-        return sb.toString();
+        return Integer.parseInt(sb.toString());
     }
 
 }
