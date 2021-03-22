@@ -53,7 +53,7 @@
          <children>
             <Pane layoutX="37.0" layoutY="-8.0">
                <children>
-                  <Text fill="#434343" layoutX="14.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Осталось:" textAlignment="RIGHT">
+                  <Text fx:id="stateText" fill="#434343" layoutX="14.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Осталось:" textAlignment="RIGHT">
                      <font>
                         <Font name="Arial" size="27.0" />
                      </font>
@@ -68,7 +68,7 @@
             <HBox fx:id="gameButtons" alignment="CENTER" layoutX="47.0" layoutY="117.0" prefHeight="60.0" prefWidth="557.0" spacing="40.0">
                <children>
                   <Button fx:id="stopBtn" mnemonicParsing="false" prefHeight="44.0" prefWidth="158.0" style="-fx-font-family: arial; -fx-font-size: 20; -fx-font-weight: bold; -fx-background-color: #ed3939;" text="СТОП" textFill="WHITE" textOverrun="CLIP" />
-                  <Button fx:id="pauseBtn" mnemonicParsing="false" prefHeight="44.0" prefWidth="158.0" style="-fx-font-family: arial; -fx-font-size: 20; -fx-font-weight: bold; -fx-background-color: FFAD00;" text="ПАУЗА" textFill="WHITE" />
+                  <Button fx:id="pauseBtn" mnemonicParsing="false" prefHeight="44.0" prefWidth="158.0" style="-fx-font-family: arial; -fx-font-size: 20; -fx-font-weight: bold; -fx-background-color: #FFAD00; -fx-border-color: #FFAD00; -fx-border-width: 0;" text="ПАУЗА" textFill="WHITE" />
                   <Button fx:id="nextBtn" mnemonicParsing="false" prefHeight="44.0" prefWidth="158.0" style="-fx-font-family: arial; -fx-font-size: 20; -fx-font-weight: bold; -fx-background-color: #489EEB;" text="ДАЛЬШЕ" textFill="WHITE" />
                </children>
             </HBox>

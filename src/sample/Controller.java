@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
@@ -36,6 +37,9 @@ public class Controller {
     private AnchorPane gamePane;
 
     @FXML
+    private Text stateText;
+
+    @FXML
     private Text timeAnswer;
 
     @FXML
@@ -55,6 +59,7 @@ public class Controller {
     private int timer;
     private Timer nt;
     private Iterator<String>iterator_themes;
+    private boolean pause;
 
 
     @FXML
@@ -72,6 +77,7 @@ public class Controller {
             ThemesList.generateSampleThemesList(extracted_themes);
             iterator_themes = ThemesList.getSampleThemes().iterator();
             currentTheme.setText(iterator_themes.next());
+            switchPauseState(false);
             nt.start();
         });
         // при нажатии "СТОП"
@@ -82,19 +88,51 @@ public class Controller {
         });
         // инициализация таймера, каждую секунду уменьшаем timer и изменяем text у элемента отвечающего за отображение таймера
         nt = new Timer(1000, e -> {
+            if (pause) return; // пропускаем если стоит пауза
             timer -= 1;
             timeAnswer.setText(timerStringFormat());
             // при достижении нуля
-            if (timer <= 0) {
-                if (iterator_themes.hasNext()) {
-                    currentTheme.setText(iterator_themes.next());
-                    timer = extracted_timer;
-                    timeAnswer.setText(timerStringFormat());
-                } else {
-                    nt.stop();
-                }
-            }
+            if (timer <= 0) goToNextTheme();
         });
+        // при нажатии "ПАУЗА"
+        pauseBtn.setOnAction(e -> {
+            switchPauseState(!pause);
+        });
+
+        // при нажатии "ДАЛЬШЕ"
+        nextBtn.setOnAction(e -> {
+            goToNextTheme();
+        });
+    }
+
+    private  void goToNextTheme() {
+        if (iterator_themes.hasNext()) {
+            currentTheme.setText(iterator_themes.next());
+            timer = extracted_timer;
+            timeAnswer.setText(timerStringFormat());
+        } else {
+            nt.stop();
+            switchVisibleElements();
+        }
+    }
+
+    private void switchPauseState(boolean state) {
+        pause = state;
+        if (pause) {
+            timeAnswer.setText("");
+
+            stateText.setText("Пауза");
+            pauseBtn.setStyle("-fx-font-family: arial; -fx-font-size: 20; -fx-font-weight: bold; -fx-background-color: #FFAD00; " +
+                            "-fx-border-color: #ED3939; " +
+                            "-fx-border-width: 3;");
+
+        } else {
+            timeAnswer.setText(timerStringFormat());
+            stateText.setText("Осталось:");
+            pauseBtn.setStyle("-fx-font-family: arial; -fx-font-size: 20; -fx-font-weight: bold; -fx-background-color: #FFAD00; " +
+                            "-fx-border-color: #FFAD00; " +
+                            "-fx-border-width: 0;");
+        }
     }
 
     private String timerStringFormat() {
@@ -123,8 +161,8 @@ public class Controller {
                 break;
             }
         }
-
-        return Integer.parseInt(sb.toString());
+        if (sb.toString().equals("")) return -1;
+        else return Integer.parseInt(sb.toString());
     }
 
 }
