@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="472.0" prefWidth="691.0" style="-fx-background-color: #fcfcfc;" stylesheets="@styles/main.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="472.0" prefWidth="691.0" style="-fx-background-color: #fcfcfc;" stylesheets="@styles/main.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
       <AnchorPane fx:id="startPane" layoutX="68.0" layoutY="254.0" prefHeight="200.0" prefWidth="557.0">
          <children>
@@ -65,7 +65,7 @@
                   </Text>
                </children>
             </Pane>
-            <HBox fx:id="gameButtons" alignment="CENTER" layoutX="47.0" layoutY="117.0" prefHeight="60.0" prefWidth="557.0" spacing="40.0">
+            <HBox alignment="CENTER" layoutX="47.0" layoutY="117.0" prefHeight="60.0" prefWidth="557.0" spacing="40.0">
                <children>
                   <Button fx:id="stopBtn" mnemonicParsing="false" prefHeight="44.0" prefWidth="158.0" style="-fx-font-family: arial; -fx-font-size: 20; -fx-font-weight: bold; -fx-background-color: #ed3939;" text="СТОП" textFill="WHITE" textOverrun="CLIP" />
                   <Button fx:id="pauseBtn" mnemonicParsing="false" prefHeight="44.0" prefWidth="158.0" style="-fx-font-family: arial; -fx-font-size: 20; -fx-font-weight: bold; -fx-background-color: #FFAD00; -fx-border-color: #FFAD00; -fx-border-width: 0;" text="ПАУЗА" textFill="WHITE" />
