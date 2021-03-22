@@ -4,13 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 
 public class Controller {
@@ -95,14 +92,10 @@ public class Controller {
             if (timer <= 0) goToNextTheme();
         });
         // при нажатии "ПАУЗА"
-        pauseBtn.setOnAction(e -> {
-            switchPauseState(!pause);
-        });
+        pauseBtn.setOnAction(e -> switchPauseState(!pause));
 
         // при нажатии "ДАЛЬШЕ"
-        nextBtn.setOnAction(e -> {
-            goToNextTheme();
-        });
+        nextBtn.setOnAction(e -> goToNextTheme());
     }
 
     private  void goToNextTheme() {
