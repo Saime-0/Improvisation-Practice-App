@@ -40,9 +40,6 @@ public class Controller {
     private Text timeAnswer;
 
     @FXML
-    private HBox gameButtons;
-
-    @FXML
     private Button stopBtn;
 
     @FXML
